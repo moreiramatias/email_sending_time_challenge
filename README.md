@@ -41,4 +41,4 @@ This file marks the submission of my solution for the take-home challenge of Pai
   * jupyter-notebook: 6.0.3
 
 
-Please proceed on [this link](START_HERE.html) to explore my solution.
+Please proceed on [this link](notebook/challenge_solution.ipynb) to explore my solution. If you prefer good old HTML, please follow [this link](START_HERE.pdf) instead.
