@@ -18,7 +18,7 @@ np.random.seed(seed_constant)
 random.seed(seed_constant)
 
 #my path
-path = '/home/luismoreira/Desktop/pair_finance/'
+path = '/home/luismoreira/Desktop/email_sending_time_challenge/'
 
 #reading files from EDA
 training_data = pd.read_csv(path + "proc.data/training_data.csv")
