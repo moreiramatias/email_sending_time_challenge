@@ -67,4 +67,4 @@ The proposed solution is delivered under two chapters: I) Exploratory Data Analy
   * jupyter-notebook: 6.0.3
 
 
-Please proceed on [this link](notebook/challenge_solution.ipynb) to explore my solution. If you prefer good old HTML, please follow [this link](START_HERE.pdf) instead.
+Please proceed on [this link](notebook/challenge_solution.ipynb) to explore my solution. If you prefer good old HTML, please follow [this link](START_HERE.html) instead.
