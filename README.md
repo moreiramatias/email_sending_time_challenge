@@ -30,7 +30,7 @@ to read their email after lunch, some of them do it mornings, some do both)
 
 ## Executive Summary of Solution
 
-This file marks the submission of my solution for the take-home challenge of Pair Finance. The proposed solution is delivered under two chapters: I) Exploratory Data Analysis and II) Modelling.
+The proposed solution is delivered under two chapters: I) Exploratory Data Analysis and II) Modelling.
 
 
 * **Input data**: 100k customers with 3 features (X1,X2: continuous, X3:categorical). Each customer was sent 1-15 e-mails. The sent/reading e-mail times are also given.
