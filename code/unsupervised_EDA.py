@@ -6,7 +6,7 @@ import random
 import math
 
 from grepfunc import grep
-
+from sklearn.preprocessing import StandardScaler
 
 
 #reproducible seeds
@@ -481,6 +481,52 @@ g = sns.pairplot(data_viz,  hue='new_category', palette="Set2",  height = 15, co
 g._legend.remove()
 #the distribution is indeed different for fast readers (regardless of the value of X2)...being uniform between 07h-20h
 #
+
+
+#Now, Let's use Parallel coordinate Plots (PCP) to explore the predictive power of these variables over the original dataset
+#let's restrict the analysis to the continuous features, X1 and X2...and let's use the hour of the day as target, ordering the
+#colors by the observed hour...
+#
+#if X1 and X2 have capacity to predict the observed time of the day and hour-level, that would be clear by the colors of the PCP..
+data_viz = training_data_melted.filter(['client_X1','client_X2','email_proc_obshour'])
+
+#filtering cases only to be during the day
+sel_cases_idx = np.where((data_viz.email_proc_obshour >= 7) & (training_data_melted.email_proc_obshour <=23))[0]
+sel_cases_idx = data_viz.index[sel_cases_idx]
+data_viz = data_viz.iloc[sel_cases_idx,:].copy()
+data_viz.reset_index(drop = True, inplace = True)
+data_viz.head()
+
+#use only a small part of the dataset
+data_viz_sample = data_viz.sample(frac=0.05, random_state=seed_constant).copy()
+data_viz_sample_feats = data_viz_sample.drop(columns = 'email_proc_obshour').copy()
+data_viz_sample_feats.head()
+
+#scaling features - necessary for plotting parallel lines
+
+scaler = StandardScaler()
+scaler.fit(data_viz_sample_feats)
+scaled_features = StandardScaler().fit_transform(data_viz_sample_feats.values)
+data_viz_sample_feats = pd.DataFrame(scaled_features,index=data_viz_sample_feats.index,columns=data_viz_sample_feats.columns)
+
+#adding label back
+data_viz_sample_feats['email_proc_obshour'] = data_viz_sample['email_proc_obshour']
+data_viz_sample_feats = data_viz_sample_feats.sort_values('email_proc_obshour').copy()
+data_viz_sample_feats.head()
+
+#generating color pallete for chart
+palette = sns.color_palette(palette = "viridis", n_colors = len(data_viz_sample_feats.email_proc_obshour.unique()))
+
+
+#plotting parallel lines
+plt.figure(figsize=(24,18))
+sns.set(font_scale=3)
+pd.plotting.parallel_coordinates(data_viz_sample_feats, 'email_proc_obshour', color=palette)#, sort_labels = True)
+
+#there is some predictive power in the X1, X2 features...however, it is clear that they are not descriminitive enough to predict on <60m granularity...
+
+
+
 #these two variables have the most predictive power...let's keep that in mind for modelling stage as well.
 
 #
